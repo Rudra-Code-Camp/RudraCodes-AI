@@ -43,6 +43,12 @@ jobs:
       - name: Build with Buildozer
         run: yes | buildozer -v android debug
 
+      - name: Show Buildozer Log on Failure
+        if: failure()
+        run: |
+          find . -name "buildozer.log" -exec cat {} +
+          cat ~/.buildozer/logs/buildozer.log || true
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
